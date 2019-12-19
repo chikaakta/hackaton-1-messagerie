@@ -1,4 +1,5 @@
 <?php
+
     define("SERVER", "localhost");
     define("USER", "root");
     define("PASSWORD", "");
@@ -15,6 +16,7 @@
     if($mysqli->connect_error){
         $responce["MESSAGE"] = "INTERNAL SERVER ERROR";
         $responce["STATUS"] = 500;
+        echo json_encode($responce);
     }
 
     else{
@@ -32,9 +34,28 @@
         if( $_POST['username'] && $_POST['mdp']){
 
             $data = array();
+            $data2 = array();
             $username = $_POST['username'];
             $mdp = $_POST['mdp'];
+            $timeconnect = time();
+
+            $sql = "SELECT timeconnect FROM users WHERE username='{$username}' AND mdp='{$mdp}'";
+            $table_data2 = $mysqli->query($sql);
+            while($row = $table_data2->fetch_array(MYSQLI_ASSOC)){
+                $data2[] = $row;
+            }
+
+            if(count($data) > 0){
+                $sql = "UPDATE users SET timeconnect= '{$timeconnect}' WHERE username='{$username}' AND mdp='{$mdp}'";               
+            }
+            else{
+                $sql = "INSERT INTO users(timeconnect) VALUES '{$timeconnect}'";
+            }
+            
+            $mysqli->query($sql);
+
             $sql = "SELECT * FROM users WHERE username='{$username}' AND mdp='{$mdp}'";
+
             $table_data = $mysqli->query($sql);
             while($row = $table_data->fetch_array(MYSQLI_ASSOC)){
                 $data[] = $row;
@@ -47,6 +68,7 @@
             else{
                 $responce["MESSAGE"] = "DATA NOT FOUND";
                 $responce["STATUS"] = 404;
+                echo json_encode($responce);
             }
         }
 
@@ -64,5 +86,6 @@
             return utf8_encode($d);
         return $d;
     }
-    echo json_encode(utf8ize($data));    
+    echo json_encode(utf8ize($data));
+
 ?>
