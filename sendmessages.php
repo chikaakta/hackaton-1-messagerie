@@ -33,23 +33,21 @@
 
             $data = array();
 
-            //////////////////////////////////
-            //strtotime('2010-05-17 19:13:37');
-            //////////////////////////////////
+            $timesent = time();
             
             $sender = $_POST['sender'];
             $receiver = $_POST['receiver'];
             $content = $_POST['content'];
 
-            $sql = "INSERT INTO messages(sender,receiver,content) VALUES('{$_POST['sender']}','{$_POST['receiver']}','{$_POST['content']}')";
-
+            $sql = "INSERT INTO messages(sender,receiver,content,timesent) VALUES('{$_POST['sender']}','{$_POST['receiver']}','{$_POST['content']}','{$timesent}')";
+            print_r($sql);
             if($mysql -> query($sql)){
                 $responce["MESSAGE"] = "SAVE DATA SUCCED";
                 $responce["STATUS"] = 200;
             }
             else{
 
-            $responce["MESSAGE"] = "SAVE DATA FAILED";
+            $responce["MESSAGE"] = "REQUEST FAILED";
             $responce["STATUS"] = 500;
             }            
         }
