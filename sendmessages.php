@@ -40,7 +40,7 @@
             $content = $_POST['content'];
 
             $sql = "INSERT INTO messages(sender,receiver,content,timesent) VALUES('{$_POST['sender']}','{$_POST['receiver']}','{$_POST['content']}','{$timesent}')";
-            print_r($sql);
+            
             if($mysql -> query($sql)){
                 $responce["MESSAGE"] = "SAVE DATA SUCCED";
                 $responce["STATUS"] = 200;
