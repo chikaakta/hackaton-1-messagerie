@@ -31,9 +31,11 @@
 
         if( $_POST['username'] && $_POST['mdp']){
 
+
             $data = array();
             $username = $_POST['username'];
             $mdp = $_POST['mdp'];
+            $timeconnect = time();
             $sql = "SELECT * FROM users WHERE username='{$username}'";
             $table_data = $mysql->query($sql);
             while($row = $table_data->fetch_array(MYSQLI_ASSOC)){
@@ -42,20 +44,32 @@
             if(count($data) > 0){
                 $responce["MESSAGE"] = "NOM DEJA UTILISE";
                 $responce["STATUS"] = 200;
+                echo json_encode($responce);
             }
             else{
 
-                $sql = "INSERT INTO users(username,mdp) 
-                    VALUES('{$_POST['username']}','{$_POST['mdp']}')";
+                $sql = "INSERT INTO users(username,mdp,timeconnect) VALUES('{$_POST['username']}','{$_POST['mdp']}','{$timeconnect}')";
         
                 if($mysql -> query($sql)){
                     $responce["MESSAGE"] = "SAVE DATA SUCCED";
                     $responce["STATUS"] = 200;
+
+
+                    $sql = "SELECT * FROM users WHERE username='{$username}'";
+                    $table_data = $mysql->query($sql);
+                    while($row = $table_data->fetch_array(MYSQLI_ASSOC)){
+                        $data[] = $row;
+                    }
+                    if(count($data) > 0){
+
+                        echo json_encode(utf8ize($data));
+                    }
                 }
                 else{
 
                 $responce["MESSAGE"] = "SAVE DATA FAILED";
                 $responce["STATUS"] = 500;
+                echo json_encode($responce);
             }
             } 
         }
@@ -63,6 +77,7 @@
 
             $responce["MESSAGE"] = "INVALID REQUEST";
             $responce["STATUS"] = 400;
+            echo json_encode($responce);
         }
     }
 
@@ -77,7 +92,5 @@
             return utf8_encode($d);
         return $d;
     }
-
-    echo json_encode($responce);
     
 ?>
