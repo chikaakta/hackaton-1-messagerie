@@ -1,13 +1,13 @@
 Hackaton 1 E2
 
-base de donnée SQL connecté à un serveur en php qui gère une api.
-Utilisation de Wamp server pour mettre en place la base de donnée.
+base de donnÃ©e SQL connectÃ© Ã  un serveur en php qui gÃ¨re une api.
+Utilisation de Wamp server pour mettre en place la base de donnÃ©e.
 
 
-login.php : permet de se connecter à son compte.
+login.php : permet de se connecter Ã  son compte.
 
-signup.php : permet de créer un compte pour ensuite se connecter
+signup.php : permet de crÃ©er un compte pour ensuite se connecter
 
-sendmessages : envois le message dans la base de donnée en fonction de l'id envoyeur et l'id du receveur.
+sendmessages.php : envois le message dans la base de donnÃ©e en fonction de l'id envoyeur et l'id du receveur.
 
-receivemessages.php : vérifie que l'utilisateur est bien l'utilisateur puis le serveur lui renvoie les messages demandés en l'occurence ceux ou son "ami" et lui on leur id enregistré.
+receivemessages.php : vÃ©rifie que l'utilisateur est bien l'utilisateur puis le serveur lui renvoie les messages demandÃ©s en l'occurence ceux ou son "ami" et lui on leur id enregistrÃ©.
