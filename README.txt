@@ -1,7 +1,7 @@
 Hackaton 1 E2
 
 base de donnée SQL connecté à un serveur en php qui gère une api.
-
+Utilisation de Wamp server pour mettre en place la base de donnée.
 
 
 login.php : permet de se connecter à son compte.
