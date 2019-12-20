@@ -44,36 +44,23 @@
 
                 if( $_POST['friend']){ //va chercher l' id du destinataire.
 
-                    $friend = $_POST['friend'];
-                    $sql = "SELECT id FROM users WHERE username='{$friend}'";
-                    $table_data2 = $mysqli->query($sql);
+                    $friendId = $_POST['friend'];
+                    //$friendId = $data2[0]["id"];
+                    $data3 = array();
+                    $senderId = $_POST['id'];
+                    $sql = "SELECT sender, receiver, content, timesent FROM messages WHERE sender='{$senderId}' AND receiver='{$friendId}'";
+                    $table_data3 = $mysqli->query($sql);
+                    while($row = $table_data3->fetch_array(MYSQLI_ASSOC)){
+                        $data3[] = $row;
+                    }//tout les messages que le demandeur à envoyé a l'ami
 
-                    $data2 = array();
-
-                    while($row = $table_data2->fetch_array(MYSQLI_ASSOC)){
-                        $data2[] = $row;
-                    }
-                    $friendId = $data2;
-                    //var_dump($data2);
-                    if(count($friendId) > 0){
-
-                        $friendId = $data2[0]["id"];
-                        $data3 = array();
-                        $senderId = $_POST['id'];
-                        $sql = "SELECT sender, receiver, content, timesent FROM messages WHERE sender='{$senderId}' AND receiver='{$friendId}'";
-                        $table_data3 = $mysqli->query($sql);
-                        while($row = $table_data3->fetch_array(MYSQLI_ASSOC)){
-                            $data3[] = $row;
-                        }//tout les messages que le demandeur à envoyé a l'ami
-
-                        $data4 = array();
-                        $sql = "SELECT sender, receiver, content, timesent FROM messages WHERE sender='{$friendId}' AND receiver='{$senderId}'";
-                        $table_data4 = $mysqli->query($sql);
-                        while($row = $table_data4->fetch_array(MYSQLI_ASSOC)){
-                            $data3[] = $row;
-                        }//tout les messages que l'ami à envoyé au demandeur                    
-                        echo json_encode(utf8ize($data3));
-                    }
+                    $sql = "SELECT sender, receiver, content, timesent FROM messages WHERE sender='{$friendId}' AND receiver='{$senderId}'";
+                    $table_data4 = $mysqli->query($sql);
+                    while($row = $table_data4->fetch_array(MYSQLI_ASSOC)){
+                        $data3[] = $row;
+                    }//tout les messages que l'ami à envoyé au demandeur                    
+                    echo json_encode(utf8ize($data3));
+                }
                     else{
                         $responce["MESSAGE"] = "UTILISATEUR INCONNU";
                         echo json_encode(utf8ize($responce));
@@ -87,10 +74,8 @@
                 $responce["STATUS"] = 404;
                 echo json_encode(utf8ize($responce));
             }
-        }
-
-        
     }
+
     //gère l'encodage utf8 pour afficher les données
     function utf8ize($d) {
         if (is_array($d)) 
