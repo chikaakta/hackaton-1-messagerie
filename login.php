@@ -64,6 +64,7 @@
                 $responce["DATA"] = $data;
                 $responce["MESSAGE"] = "DATA FOUND";
                 $responce["STATUS"] = 200;
+                echo json_encode(utf8ize($data));
             }
             else{
                 $responce["MESSAGE"] = "DATA NOT FOUND";
@@ -86,6 +87,5 @@
             return utf8_encode($d);
         return $d;
     }
-    echo json_encode(utf8ize($data));
 
 ?>
