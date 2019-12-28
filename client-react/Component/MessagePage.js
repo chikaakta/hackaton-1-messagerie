@@ -191,7 +191,7 @@ const MessagePage = ({user}) => {
 
   const messageToSend = () => {
     if (messageInput.current.value != '') {
-      fetch("http://92.151.100.58:80/api/sendmessages.php", {
+      fetch("http://yourIpAdress/api/sendmessages.php", {
         method: 'POST', 
         body: `{"sender": "${user.userId}", "receiver": "${currentConversation}", "content": "${simplifyBrainfuck(fuckText(formMessage, user.userId % 255))}"}`
       }).then(response => response.json())
@@ -231,7 +231,7 @@ const MessagePage = ({user}) => {
 
   const updateConversation = (friendId) => {
     setCurrentConversation(friendId);
-    fetch("http://92.151.100.58:80/api/receivemessages.php", {
+    fetch("http://yourIpAdress/api/receivemessages.php", {
         method: 'POST', 
         body: `{"username": "${user.username}", "mdp": "${user.password}", "id": "${user.userId}", "friend": "${friendId}"}`
       }).then(response => response.json())
@@ -252,7 +252,7 @@ const MessagePage = ({user}) => {
   
   const searchFriend = () => {
     if (friendInput.current.value !== '') {
-      fetch("http://92.151.100.58:80/api/addfriend.php", {
+      fetch("http://yourIpAdress/api/addfriend.php", {
           method: 'POST', 
           body: `{"username": "${user.username}", "mdp": "${user.password}", "friend": "${formFriend}"}`
         }).then(response => response.json())
@@ -276,7 +276,7 @@ const MessagePage = ({user}) => {
 
   const getFriends = () => {
     let friendArray = [];
-    fetch("http://92.151.100.58:80/api/myfriends.php", {
+    fetch("http://yourIpAdress/api/myfriends.php", {
         method: 'POST', 
         body: `{"username": "${user.username}", "mdp": "${user.password}"}`      
       }).then(response => response.json())
