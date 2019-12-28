@@ -83,7 +83,7 @@ const HomePage = ({fillUserData}) => {
   const requestLogin = () => {
     if (formUsername !== '' || formPassword !== '') {
       setFormButton(true);
-      fetch("http://92.151.100.58:80/api/login.php", {
+      fetch("http://yourIpAdress/api/login.php", {
         method: 'POST', 
         body: `{"username": "${formUsername}", "mdp": "${formPassword}"}`
       }).then(response => response.json())
@@ -102,7 +102,7 @@ const HomePage = ({fillUserData}) => {
   const requestSignin = () => {
     if (formUsername !== '' || formPassword !== '') {
       setFormButton(true);
-      fetch("http://92.151.100.58:80/api/signup.php", {
+      fetch("http://yourIpAdress/api/signup.php", {
         method: 'POST', 
         body: `{"username": "${formUsername}", "mdp": "${formPassword}"}`
       }).then(response => response.json())
